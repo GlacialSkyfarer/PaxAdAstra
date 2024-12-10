@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" load_steps=4 format=3 uid="uid://dkcb33bqpptcu"]
+
+[ext_resource type="PackedScene" uid="uid://bpsloydi66ev6" path="res://Scenes/Entities/Gizmos/giz_logic_relay.tscn" id="1_mlrm2"]
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="2_r4yip"]
+[ext_resource type="Script" path="res://Gizmos/LogicDelay.cs" id="3_iyxd2"]
+
+[resource]
+script = ExtResource("2_r4yip")
+scene_file = ExtResource("1_mlrm2")
+script_class = ExtResource("3_iyxd2")
+apply_rotation_on_map_build = true
+classname = "logic_delay"
+description = "Passes a signal along to another gizmo after a designated wait."
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"delay": 1.0,
+"retrigger_before_done": false,
+"target": "",
+"targetname": "",
+"trigger_function": "Trigger"
+}
+class_property_descriptions = {
+"delay": "Number of seconds to wait before triggering.",
+"retrigger_before_done": "Whether this relay should be able to start multiple timers at once.",
+"target": "Gizmo to trigger when entered/exited. Use prefix 'target_' to add more.",
+"targetname": "Name to use when targeted.",
+"trigger_function": "Function to call on a triggered gizmo."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"model": "{\"path\":\"Textures/special/logic_delay.png\", \"scale\":0.5}",
+"size": AABB(-4, -4, -4, 4, 4, 4)
+}
+node_class = "Node"
+name_property = "LogicRelay"

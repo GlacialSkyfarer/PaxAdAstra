@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4dfq755onv45"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="1_2xnoo"]
+[ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="2_putrt"]
+
+[node name="Sky Palace" type="Node3D"]
+
+[node name="FuncGodotMap" type="Node3D" parent="."]
+script = ExtResource("1_2xnoo")
+map_settings = ExtResource("2_putrt")

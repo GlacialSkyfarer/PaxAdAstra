@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDPointClass" load_steps=4 format=3 uid="uid://bb4qleknl6xud"]
+
+[ext_resource type="PackedScene" uid="uid://bpsloydi66ev6" path="res://Scenes/Entities/Gizmos/giz_logic_relay.tscn" id="1_28r1w"]
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_point_class.gd" id="1_q6r7o"]
+[ext_resource type="Script" path="res://Gizmos/LogicRelay.cs" id="3_6sbcc"]
+
+[resource]
+script = ExtResource("1_q6r7o")
+scene_file = ExtResource("1_28r1w")
+script_class = ExtResource("3_6sbcc")
+apply_rotation_on_map_build = true
+classname = "logic_relay"
+description = "Passes a signal along to another gizmo."
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"target": "",
+"targetname": "",
+"trigger_function": "Trigger"
+}
+class_property_descriptions = {
+"target": "Gizmo to trigger when entered/exited. Use prefix 'target_' to add more.",
+"targetname": "Name to use when targeted.",
+"trigger_function": "Function to call on a triggered gizmo."
+}
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"model": "{\"path\":\"Textures/special/logic_relay.png\", \"scale\":0.5}",
+"size": AABB(-4, -4, -4, 4, 4, 4)
+}
+node_class = "Node"
+name_property = "LogicRelay"

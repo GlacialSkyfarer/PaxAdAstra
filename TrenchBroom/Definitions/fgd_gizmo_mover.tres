@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDSolidClass" load_steps=2 format=3 uid="uid://b2hhkthipscqv"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_solid_class.gd" id="1_ig001"]
+
+[resource]
+script = ExtResource("1_ig001")
+spawn_type = 2
+origin_type = 4
+build_visuals = true
+use_in_baked_light = true
+shadow_casting_setting = 1
+build_occlusion = false
+render_layers = 1
+collision_shape_type = 1
+collision_layer = 1
+collision_mask = 1
+collision_priority = 1.0
+collision_shape_margin = 0.04
+add_textures_metadata = false
+add_vertex_metadata = false
+add_face_position_metadata = false
+add_face_normal_metadata = false
+add_collision_shape_face_range_metadata = false
+classname = "gizmo_door"
+description = "Object that moves back and forth when triggered with \"Open\" or \"Close\""
+func_godot_internal = false
+base_classes = Array[Resource]([])
+class_properties = {
+"open_position": Vector3(0, 1, 0),
+"speed": 1.5,
+"start_open": false,
+"targetname": ""
+}
+class_property_descriptions = {
+"open_position": "The (relative) position that the door will move to when open.",
+"speed": "Speed at which door moves, in Godot units per second",
+"start_open": "Determines whether the door is open when it first loads.",
+"targetname": "The name that this will be referred to when targeting."
+}
+auto_apply_to_matching_node_properties = false
+meta_properties = {
+"color": Color(0.8, 0.8, 0.8, 1),
+"size": AABB(-8, -8, -8, 8, 8, 8)
+}
+node_class = "CharacterBody3D"
+name_property = "mover"
