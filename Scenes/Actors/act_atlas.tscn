@@ -1,32 +1,72 @@
-[gd_scene load_steps=5 format=3 uid="uid://j26pdko6vtw6"]
+[gd_scene load_steps=8 format=3 uid="uid://j26pdko6vtw6"]
 
 [ext_resource type="Script" path="res://Actors/Player.cs" id="1_ybxvk"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3lrub"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1ctfj"]
 radius = 0.4
 height = 1.75
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3j00e"]
 shading_mode = 0
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_xn378"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_j1i3c"]
 material = SubResource("StandardMaterial3D_3j00e")
 radius = 0.4
 height = 1.75
+radial_segments = 8
+rings = 1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7qq24"]
+radius = 0.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_xfaye"]
+material = SubResource("StandardMaterial3D_3j00e")
+radius = 0.4
+height = 0.8
+radial_segments = 8
+rings = 4
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7eqrd"]
+points = PackedVector3Array(0, 0, 0, -2.5, 0, -10, 2.5, 0, -10, 0, -2.5, -10, 0, 2.5, -10)
 
 [node name="ActAtlas" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_ybxvk")
+grappleCastPath = NodePath("GrappleCast")
+standingShapePath = NodePath("StandingShape")
+grapplingShapePath = NodePath("GrapplingShape")
 movementSpeed = 6.0
 acceleration = 50.0
 deceleration = 35.0
 airAcceleration = 35.0
-airDeceleration = 20.0
+airDeceleration = 10.0
 jumpableStates = [0]
+jumpHeight = 2.0
+fallGravityMultiplier = 1.5
+grappleableStates = [0, 1, 2]
+grappleStall = 0.15
+grappleSpeed = 17.5
+ditherVelocityMult = -1.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-shape = SubResource("CapsuleShape3D_3lrub")
+[node name="StandingShape" type="CollisionShape3D" parent="."]
+visible = false
+shape = SubResource("CapsuleShape3D_1ctfj")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-mesh = SubResource("CapsuleMesh_xn378")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StandingShape"]
+mesh = SubResource("CapsuleMesh_j1i3c")
+skeleton = NodePath("../..")
+
+[node name="GrapplingShape" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_7qq24")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GrapplingShape"]
+mesh = SubResource("SphereMesh_xfaye")
+skeleton = NodePath("../..")
+
+[node name="GrappleCast" type="RayCast3D" parent="."]
+
+[node name="GrappleObjectCollider" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GrappleObjectCollider"]
+shape = SubResource("ConvexPolygonShape3D_7eqrd")

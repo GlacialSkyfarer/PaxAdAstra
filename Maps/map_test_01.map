@@ -15,4 +15,58 @@
 ( 64 2816 16 ) ( 65 2816 16 ) ( 64 2816 17 ) tex_testPanel 0 0 0 0.5 0.5
 ( 560 64 16 ) ( 560 64 17 ) ( 560 65 16 ) tex_testPanel 0 0 0 0.5 0.5
 }
+// brush 1
+{
+( -48 176 0 ) ( -48 177 0 ) ( -48 176 1 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( -48 176 0 ) ( -48 176 1 ) ( -47 176 0 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( -48 176 0 ) ( -47 176 0 ) ( -48 177 0 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( 48 320 224 ) ( 48 321 224 ) ( 49 320 224 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( 48 320 16 ) ( 49 320 16 ) ( 48 320 17 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( 48 320 16 ) ( 48 320 17 ) ( 48 321 16 ) tex_testPanelCircle 0 0 0 0.5 0.5
+}
+// brush 2
+{
+( -32 112 0 ) ( -32 113 0 ) ( -32 112 1 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( -32 112 0 ) ( -32 112 1 ) ( -31 112 0 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( -32 112 0 ) ( -31 112 0 ) ( -32 113 0 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( 32 176 64 ) ( 32 177 64 ) ( 33 176 64 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( 32 176 16 ) ( 33 176 16 ) ( 32 176 17 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( 32 176 16 ) ( 32 176 17 ) ( 32 177 16 ) tex_testPanelCircle 0 0 0 0.5 0.5
+}
+// brush 3
+{
+( -32 144 64 ) ( -32 145 64 ) ( -32 144 65 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( -32 144 64 ) ( -32 144 65 ) ( -31 144 64 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( -32 144 64 ) ( -31 144 64 ) ( -32 145 64 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( 32 176 160 ) ( 32 177 160 ) ( 33 176 160 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( 32 176 80 ) ( 33 176 80 ) ( 32 176 81 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( 32 176 80 ) ( 32 176 81 ) ( 32 177 80 ) tex_testPanelCircle 0 0 0 0.5 0.5
+}
+// brush 4
+{
+( -48 736 0 ) ( -48 737 0 ) ( -48 736 1 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( -48 736 0 ) ( -48 736 1 ) ( -47 736 0 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( -48 736 0 ) ( -47 736 0 ) ( -48 737 0 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( 48 896 208 ) ( 48 897 208 ) ( 49 896 208 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( 48 896 16 ) ( 49 896 16 ) ( 48 896 17 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( 48 896 16 ) ( 48 896 17 ) ( 48 897 16 ) tex_testPanelCircle 0 0 0 0.5 0.5
+}
+// brush 5
+{
+( -48 528 192 ) ( -48 529 192 ) ( -48 528 193 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( -48 528 192 ) ( -48 528 193 ) ( -47 528 192 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( -48 528 192 ) ( -47 528 192 ) ( -48 529 192 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( 48 736 208 ) ( 48 737 208 ) ( 49 736 208 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( 48 736 208 ) ( 49 736 208 ) ( 48 736 209 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( 48 736 208 ) ( 48 736 209 ) ( 48 737 208 ) tex_testPanelCircle 0 0 0 0.5 0.5
+}
+// brush 6
+{
+( -16 544 208 ) ( -16 545 208 ) ( -16 544 209 ) tex_testPanelCircle 32 0 0 0.5 0.5
+( -16 544 208 ) ( -16 544 209 ) ( -15 544 208 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( -16 544 208 ) ( -15 544 208 ) ( -16 545 208 ) tex_testPanelCircle 0 -32 0 0.5 0.5
+( 16 576 320 ) ( 16 577 320 ) ( 17 576 320 ) tex_testPanelCircle 0 -32 0 0.5 0.5
+( 16 576 224 ) ( 17 576 224 ) ( 16 576 225 ) tex_testPanelCircle 0 0 0 0.5 0.5
+( 16 576 224 ) ( 16 576 225 ) ( 16 577 224 ) tex_testPanelCircle 32 0 0 0.5 0.5
+}
 }

@@ -1,19 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://bapl2tiqj4k4g"]
+[gd_scene load_steps=4 format=3 uid="uid://bapl2tiqj4k4g"]
 
 [ext_resource type="Shader" path="res://Shaders/sdr_palette.gdshader" id="1_45nnp"]
 [ext_resource type="Texture2D" uid="uid://c1jtmbxqk45lp" path="res://Shaders/palettes.png" id="2_4u8hx"]
-[ext_resource type="Texture2D" uid="uid://y0dbqvn5p70" path="res://Shaders/bayer16tile2.png" id="2_jm3bo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_01cmt"]
 shader = ExtResource("1_45nnp")
 shader_parameter/palette = 8
-shader_parameter/bit_depth = 16
+shader_parameter/cohesiveness = null
 shader_parameter/contrast = 1.0
 shader_parameter/luminosity_offset = null
 shader_parameter/dither_size = 1
 shader_parameter/dither_offset = null
 shader_parameter/palette_texture = ExtResource("2_4u8hx")
-shader_parameter/dither_texture = ExtResource("2_jm3bo")
 
 [node name="ColorRect" type="ColorRect"]
 visible = false
