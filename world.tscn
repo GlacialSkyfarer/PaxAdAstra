@@ -20,6 +20,9 @@ shader_parameter/cohesiveness = 0.2
 shader_parameter/contrast = 1.0
 shader_parameter/luminosity_offset = 0.01
 shader_parameter/dither_size = 1
+shader_parameter/warble_speed = 3.0
+shader_parameter/warble_intensity = 2.0
+shader_parameter/warble_vector = Vector2(0, 1)
 shader_parameter/dither_offset = Vector2(0, 0)
 shader_parameter/palette_texture = ExtResource("4_7d352")
 shader_parameter/bayer_texture = ExtResource("2_mv4tg")
@@ -153,8 +156,16 @@ shape = SubResource("ConvexPolygonShape3D_hgy80")
 [node name="ActAtlas" parent="SubViewport/World" instance=ExtResource("4_g3xr5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 viewportContainerPath = NodePath("../../..")
-jumpableStates = [0, 4]
-grappleRange = 10.0
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/World/ActAtlas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89231, 9.92402)
+fov = 60.0
+size = 15.286
+
+[node name="Moon" type="Sprite3D" parent="SubViewport/World/ActAtlas/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 636.069, -3519.09)
+pixel_size = 12.0
+texture = ExtResource("9_c4p8q")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport/World"]
 environment = SubResource("Environment_3l2k3")
@@ -178,13 +189,3 @@ texture_filter = 5
 texture = ExtResource("11_8w4xs")
 region_enabled = true
 region_rect = Rect2(0, 0, 4096, 512)
-
-[node name="Camera3D" type="Camera3D" parent="SubViewport/World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.89231, 9.92402)
-fov = 60.0
-size = 15.286
-
-[node name="Moon" type="Sprite3D" parent="SubViewport/World/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 636.069, -3519.09)
-pixel_size = 12.0
-texture = ExtResource("9_c4p8q")

@@ -8,6 +8,9 @@ uniform float cohesiveness;
 uniform float contrast;
 uniform float luminosity_offset;
 uniform int dither_size;
+uniform float warble_speed;
+uniform float warble_intensity;
+uniform vec2 warble_vector;
 
 uniform vec2 dither_offset;
 
@@ -36,8 +39,8 @@ void fragment() {
 
 	vec2 noise_uv = UV * dither_texel_size * vec2(screen_size);
 	noise_uv -= dither_offset * dither_texel_size;
+	noise_uv += TIME * warble_speed * warble_vector * dither_texel_size;
 
-	luminosity = max(luminosity - 0.00001, 0.0); // makes sure our floor calculation below behaves when lum == 1.0
 	float lum_lower = floor(luminosity * float(colors)) / float(colors);
 	float lum_upper = (floor(luminosity * float(colors)) + 1.0) / float(colors);
 	float lum_scaled = luminosity * float(colors) - floor(luminosity * float(colors)); // calculates where lum lies between the upper and lower bound

@@ -22,6 +22,7 @@ window/size/viewport_height=540
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="viewport"
+window/canvas_textures/default_texture_filter=0
 
 [dotnet]
 
@@ -101,3 +102,7 @@ grapple={
 
 3d/physics_engine="JoltPhysics3D"
 3d/default_gravity=29.4
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

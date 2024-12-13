@@ -25,6 +25,8 @@ public partial class Player : Actor
 	private CollisionShape3D standingShape;
 	[Export] private NodePath grapplingShapePath;
 	private CollisionShape3D grapplingShape;
+	[Export] private NodePath grappleSkeletonPath;
+	private Skeleton3D grappleSkeleton;
 
 	#endregion
 
@@ -59,6 +61,7 @@ public partial class Player : Actor
 	[Export] private float grappleSpeed = 45f;
 	[Export] private string ungrappleableGroup = "Ungrappleable";
 	private Vector3 grappleTarget = Vector3.Zero;
+	private bool canGrapple = true;
 
 	[ExportCategory("Visual Effects")]
 	[ExportGroup("Camera")]
@@ -70,7 +73,8 @@ public partial class Player : Actor
     {
 
         base._Ready();
-    
+
+		grappleSkeleton = GetNode<Skeleton3D>(grappleSkeletonPath);
 		ditherMaterial = GetNode<SubViewportContainer>(viewportContainerPath).Material as ShaderMaterial;
 		grappleCast = GetNode<RayCast3D>(grappleCastPath);
 		grapplingShape = GetNode<CollisionShape3D>(grapplingShapePath);
@@ -86,9 +90,10 @@ public partial class Player : Actor
 		jumpBufferTime = Mathf.Max(0, jumpBufferTime - (float)delta);
 		grappleStallTime = Mathf.Max(0, grappleStallTime - (float)delta);
 
-		if (IsOnFloor()) {
+		if (jumpableStates.Contains(currentState)) {
 
 			coyoteTime = maxCoyoteTime;
+			canGrapple = true;
 
 		} else {
 
@@ -125,7 +130,7 @@ public partial class Player : Actor
 
 		}
 
-		if (jumpBufferTime > 0 && coyoteTime > 0 && jumpableStates.Contains(currentState)) 
+		if (jumpBufferTime > 0 && coyoteTime > 0) 
 		{
 
 			jumpBufferTime = 0;
@@ -135,7 +140,7 @@ public partial class Player : Actor
 			jumpLock = true;
 
 		}
-		if (Input.IsActionJustPressed("grapple") && grappleableStates.Contains(currentState)) {
+		if (canGrapple && grappleableStates.Contains(currentState) && Input.IsActionJustPressed("grapple")) {
 
 			Vector3 direction = -GlobalBasis.Z;
 
@@ -147,7 +152,7 @@ public partial class Player : Actor
 
 			grappleCast.TargetPosition = direction * grappleRange;
 			grappleCast.ForceRaycastUpdate();
-			if (grappleCast.IsColliding()) GD.Print(!((Node)grappleCast.GetCollider()).IsInGroup(ungrappleableGroup));
+
 			if (grappleCast.IsColliding() && !((Node)grappleCast.GetCollider()).IsInGroup(ungrappleableGroup)) {
 
 				grappleTarget = grappleCast.GetCollisionPoint();
@@ -156,7 +161,25 @@ public partial class Player : Actor
 
 				currentState = PlayerState.GrappleStalling;
 
+			} else {
+
+				if (grappleCast.IsColliding()) {
+
+					grappleTarget = grappleCast.GetCollisionPoint();
+
+				} else {
+
+					grappleTarget = GlobalPosition + grappleCast.TargetPosition;
+
+				}
+
+
 			}
+
+			grappleSkeleton.LookAt(grappleTarget, Vector3.Forward);
+			grappleSkeleton.SetBonePosePosition(1, Vector3.Forward * GlobalPosition.DistanceTo(grappleTarget));
+
+			canGrapple = false;
 
 		}
 
@@ -164,7 +187,18 @@ public partial class Player : Actor
 
 		Velocity = velocity;
 
-		MoveAndSlide();
+		switch (currentState) {
+
+			case PlayerState.Falling:
+			case PlayerState.Grappling:
+			case PlayerState.Standing:
+			case PlayerState.Jumping:
+
+				MoveAndSlide();
+
+			break;
+
+		}
 
 		ditherMaterial.SetShaderParameter("dither_offset", (Vector2)ditherMaterial.GetShaderParameter("dither_offset") + (new Vector2(Velocity.X, Velocity.Y) * ditherVelocityMult * (float)delta));
 
@@ -174,7 +208,7 @@ public partial class Player : Actor
 
 		float inputX = Input.GetAxis("movement_left", "movement_right");
 
-		SetCollider(currentState);
+		SetCollider(currentState, delta);
 
 		switch (currentState) {
 
@@ -211,16 +245,9 @@ public partial class Player : Actor
 			break;
 			case PlayerState.GrappleStalling:
 
-				velocity = Vector3.Zero;
-
 				if (grappleStallTime <= 0 || !Input.IsActionPressed("grapple")) {
 
 					currentState = PlayerState.Grappling;
-
-				}
-				if (GetSlideCollisionCount() > 0) {
-
-					currentState = PlayerState.Standing;
 
 				}
 
@@ -237,7 +264,7 @@ public partial class Player : Actor
 
 				if (GetSlideCollisionCount() > 0) {
 
-					currentState = PlayerState.Standing;
+					currentState = PlayerState.Falling;
 
 				}
 
@@ -249,12 +276,19 @@ public partial class Player : Actor
 
 	}
 
-	private void SetCollider(PlayerState state) {
+	private void SetCollider(PlayerState state, double delta) {
 
 		switch (state) {
 
 			case PlayerState.GrappleStalling:
 			case PlayerState.Grappling:
+
+				grappleSkeleton.LookAt(grappleTarget, Vector3.Forward);
+				grappleSkeleton.SetBonePosePosition(1, Vector3.Forward * GlobalPosition.DistanceTo(grappleTarget));
+
+				Vector3 grappleDirection = GlobalPosition.DirectionTo(grappleTarget);
+
+				grapplingShape.LookAt(GlobalPosition + grappleDirection.Cross(Vector3.Forward), grappleDirection);
 
 				grapplingShape.Disabled = false;
 				grapplingShape.Visible = true;
@@ -265,6 +299,8 @@ public partial class Player : Actor
 			case PlayerState.Standing:
 			case PlayerState.Jumping:
 			case PlayerState.Falling:
+
+				grappleSkeleton.SetBonePosePosition(1, grappleSkeleton.GetBonePosePosition(1).MoveToward(Vector3.Zero, 2 * grappleSpeed * (float)delta));
 
 				grapplingShape.Disabled = true;
 				grapplingShape.Visible = false;
