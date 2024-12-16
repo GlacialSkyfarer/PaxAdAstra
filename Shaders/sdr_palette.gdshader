@@ -1,5 +1,8 @@
-shader_type canvas_item;
+shader_type spatial;
 
+render_mode unshaded, fog_disabled;
+
+uniform sampler2D TEXTURE : hint_screen_texture;
 uniform sampler2D palette_texture;
 uniform int palette;
 uniform sampler2D bayer_texture : repeat_enable, filter_nearest;
@@ -11,8 +14,13 @@ uniform int dither_size;
 uniform float warble_speed;
 uniform float warble_intensity;
 uniform vec2 warble_vector;
-
 uniform vec2 dither_offset;
+
+void vertex() {
+	
+	POSITION = vec4(VERTEX.xy, 1.0, 1.0);
+	
+}
 
 void fragment() {
 
@@ -21,7 +29,7 @@ void fragment() {
 	// sample the screen texture at the desired output resolution (according to u_dither_size)
 	// this will effectively pixelate the resulting output
 	vec2 screen_size = vec2(textureSize(TEXTURE, 0)) / float(dither_size);
-	vec2 screen_sample_uv = floor(UV * screen_size) / screen_size;
+	vec2 screen_sample_uv = floor(SCREEN_UV * screen_size) / screen_size;
 	vec3 outputColor = texture(TEXTURE, screen_sample_uv).rgb;
 
 	float luminosity = (outputColor.r * 0.299) + (outputColor.g * 0.587) + (outputColor.b * 0.114);
@@ -37,7 +45,7 @@ void fragment() {
 
 	vec2 dither_texel_size = useBlue ? bluenoise_texel_size : bayer_texel_size;
 
-	vec2 noise_uv = UV * dither_texel_size * vec2(screen_size);
+	vec2 noise_uv = SCREEN_UV * dither_texel_size * vec2(screen_size);
 	noise_uv -= dither_offset * dither_texel_size;
 	noise_uv += TIME * warble_speed * warble_vector * dither_texel_size;
 
@@ -56,6 +64,6 @@ void fragment() {
 
 	vec3 output = texture(palette_texture, vec2(floor(color_sample * float(colors) + 0.5) / float(colors), (0.5 + float(palette)) / float(textureSize(palette_texture, 0).y))).rgb;
 
-	COLOR.rgb = output;
+	ALBEDO.rgb = output;
 
 }

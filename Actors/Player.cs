@@ -17,7 +17,6 @@ public partial class Player : Actor
 
 	#region References
 
-	[Export] private NodePath viewportContainerPath;
 	private ShaderMaterial ditherMaterial;
 	[Export] private NodePath grappleCastPath;
 	private RayCast3D grappleCast;
@@ -75,7 +74,7 @@ public partial class Player : Actor
         base._Ready();
 
 		grappleSkeleton = GetNode<Skeleton3D>(grappleSkeletonPath);
-		ditherMaterial = GetNode<SubViewportContainer>(viewportContainerPath).Material as ShaderMaterial;
+		ditherMaterial = GetNode<MeshInstance3D>("/root/GBFilter").Mesh.SurfaceGetMaterial(0) as ShaderMaterial;
 		grappleCast = GetNode<RayCast3D>(grappleCastPath);
 		grapplingShape = GetNode<CollisionShape3D>(grapplingShapePath);
 		standingShape = GetNode<CollisionShape3D>(standingShapePath);
