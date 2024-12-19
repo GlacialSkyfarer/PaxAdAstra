@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://y0dbqvn5p70"
-path.s3tc="res://.godot/imported/bayer16tile2.png-891578bc051e854824dbf1f4b9d6f9e0.s3tc.ctex"
+path="res://.godot/imported/bayer16tile2.png-891578bc051e854824dbf1f4b9d6f9e0.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Shaders/bayer16tile2.png"
-dest_files=["res://.godot/imported/bayer16tile2.png-891578bc051e854824dbf1f4b9d6f9e0.s3tc.ctex"]
+dest_files=["res://.godot/imported/bayer16tile2.png-891578bc051e854824dbf1f4b9d6f9e0.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
