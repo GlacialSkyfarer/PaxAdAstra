@@ -1,17 +1,18 @@
-[gd_scene load_steps=26 format=4 uid="uid://ckai5gk376v0j"]
+[gd_scene load_steps=27 format=4 uid="uid://ckai5gk376v0j"]
 
 [ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="1_0wufl"]
-[ext_resource type="Shader" path="res://Shaders/sdr_palette.gdshader" id="1_yvkie"]
+[ext_resource type="Shader" path="res://Shaders/sdr_palette2.gdshader" id="1_oq2ky"]
+[ext_resource type="Texture2D" uid="uid://y0dbqvn5p70" path="res://Shaders/bayer16tile2.png" id="2_8mguc"]
 [ext_resource type="Resource" uid="uid://d3nxh65kiq487" path="res://TrenchBroom/cfg_defaultMap.tres" id="2_8y7ey"]
-[ext_resource type="Texture2D" uid="uid://y0dbqvn5p70" path="res://Shaders/bayer16tile2.png" id="2_mv4tg"]
-[ext_resource type="Texture2D" uid="uid://cr8ldnms3m2ll" path="res://Shaders/blue_noise.png" id="2_t36ey"]
 [ext_resource type="Material" uid="uid://bsksa0mlj08ao" path="res://TrenchBroom/Textures/tex_testPanel.tres" id="3_ob5kr"]
-[ext_resource type="Texture2D" uid="uid://c1jtmbxqk45lp" path="res://Shaders/palettes.png" id="4_7d352"]
+[ext_resource type="Texture2D" uid="uid://cr8ldnms3m2ll" path="res://Shaders/blue_noise.png" id="3_si0t2"]
 [ext_resource type="PackedScene" uid="uid://j26pdko6vtw6" path="res://Scenes/Actors/act_atlas.tscn" id="4_g3xr5"]
+[ext_resource type="Texture2D" uid="uid://c1jtmbxqk45lp" path="res://Shaders/palettes.png" id="4_qdpoi"]
 [ext_resource type="Material" uid="uid://dominhukf53p8" path="res://TrenchBroom/Textures/tex_testPanelCircle.tres" id="8_wn08u"]
 [ext_resource type="Texture2D" uid="uid://vrbf70f8247y" path="res://TrenchBroom/Textures/bg_lunar_palace_b.png" id="9_c4p8q"]
 [ext_resource type="Texture2D" uid="uid://dxbdy58j4latg" path="res://TrenchBroom/Textures/bg_lunar_palace_c.png" id="10_vsvkp"]
 [ext_resource type="Texture2D" uid="uid://p61hirqhqn7d" path="res://TrenchBroom/Textures/bg_lunar_palace_d.png" id="11_8w4xs"]
+<<<<<<< HEAD
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qpqs3"]
 shader = ExtResource("1_yvkie")
@@ -27,6 +28,9 @@ shader_parameter/dither_offset = Vector2(0, 0)
 shader_parameter/palette_texture = ExtResource("4_7d352")
 shader_parameter/bayer_texture = ExtResource("2_mv4tg")
 shader_parameter/bluenoise_texture = ExtResource("2_t36ey")
+=======
+[ext_resource type="PackedScene" uid="uid://bapl2tiqj4k4g" path="res://Scenes/UI/ui_gbFilter.tscn" id="13_k1opx"]
+>>>>>>> 6affc738a9bd3fd18bdbb2ad5fb015151f93aa8f
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_s0ko5"]
 _surfaces = [{
@@ -98,94 +102,112 @@ ambient_light_source = 2
 ambient_light_color = Color(0.205117, 0.205117, 0.205117, 1)
 ambient_light_energy = 9.71
 
-[node name="World" type="SubViewportContainer"]
-texture_filter = 1
-texture_repeat = 1
-material = SubResource("ShaderMaterial_qpqs3")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1rjcp"]
+shader = ExtResource("1_oq2ky")
+shader_parameter/palette = 15
+shader_parameter/cohesiveness = 0.2
+shader_parameter/contrast = 1.0
+shader_parameter/luminosity_offset = 0.01
+shader_parameter/dither_size = 1
+shader_parameter/warble_speed = 3.0
+shader_parameter/warble_intensity = 2.0
+shader_parameter/warble_vector = Vector2(0, 1)
+shader_parameter/dither_offset = Vector2(0, 0)
+shader_parameter/palette_texture = ExtResource("4_qdpoi")
+shader_parameter/bayer_texture = ExtResource("2_8mguc")
+shader_parameter/bluenoise_texture = ExtResource("3_si0t2")
 
-[node name="SubViewport" type="SubViewport" parent="."]
-handle_input_locally = false
-canvas_item_default_texture_filter = 0
-canvas_item_default_texture_repeat = 1
-audio_listener_enable_3d = true
-size = Vector2i(960, 540)
-render_target_update_mode = 4
+[node name="World" type="Node3D"]
 
-[node name="World" type="Node3D" parent="SubViewport"]
-
-[node name="FuncGodotMap" type="Node3D" parent="SubViewport/World"]
+[node name="FuncGodotMap" type="Node3D" parent="."]
 script = ExtResource("1_0wufl")
 local_map_file = "res://Maps/map_test_01.map"
 map_settings = ExtResource("2_8y7ey")
 
-[node name="entity_0_worldspawn" type="StaticBody3D" parent="SubViewport/World/FuncGodotMap"]
+[node name="entity_0_worldspawn" type="StaticBody3D" parent="FuncGodotMap"]
 collision_mask = 0
 
-[node name="entity_0_mesh_instance" type="MeshInstance3D" parent="SubViewport/World/FuncGodotMap/entity_0_worldspawn"]
+[node name="entity_0_mesh_instance" type="MeshInstance3D" parent="FuncGodotMap/entity_0_worldspawn"]
 mesh = SubResource("ArrayMesh_s0ko5")
 
-[node name="entity_0_occluder_instance" type="OccluderInstance3D" parent="SubViewport/World/FuncGodotMap/entity_0_worldspawn"]
+[node name="entity_0_occluder_instance" type="OccluderInstance3D" parent="FuncGodotMap/entity_0_worldspawn"]
 occluder = SubResource("ArrayOccluder3D_1wncf")
 
-[node name="entity_0_brush_0_collision_shape" type="CollisionShape3D" parent="SubViewport/World/FuncGodotMap/entity_0_worldspawn"]
+[node name="entity_0_brush_0_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn"]
 shape = SubResource("ConvexPolygonShape3D_qo3f0")
 
-[node name="entity_0_brush_1_collision_shape" type="CollisionShape3D" parent="SubViewport/World/FuncGodotMap/entity_0_worldspawn"]
+[node name="entity_0_brush_1_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn"]
 shape = SubResource("ConvexPolygonShape3D_1wyeg")
 
-[node name="entity_0_brush_2_collision_shape" type="CollisionShape3D" parent="SubViewport/World/FuncGodotMap/entity_0_worldspawn"]
+[node name="entity_0_brush_2_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn"]
 shape = SubResource("ConvexPolygonShape3D_2vfgg")
 
-[node name="entity_0_brush_3_collision_shape" type="CollisionShape3D" parent="SubViewport/World/FuncGodotMap/entity_0_worldspawn"]
+[node name="entity_0_brush_3_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn"]
 shape = SubResource("ConvexPolygonShape3D_55la6")
 
-[node name="entity_0_brush_4_collision_shape" type="CollisionShape3D" parent="SubViewport/World/FuncGodotMap/entity_0_worldspawn"]
+[node name="entity_0_brush_4_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn"]
 shape = SubResource("ConvexPolygonShape3D_45vii")
 
-[node name="entity_0_brush_5_collision_shape" type="CollisionShape3D" parent="SubViewport/World/FuncGodotMap/entity_0_worldspawn"]
+[node name="entity_0_brush_5_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn"]
 shape = SubResource("ConvexPolygonShape3D_hlfb7")
 
-[node name="entity_0_brush_6_collision_shape" type="CollisionShape3D" parent="SubViewport/World/FuncGodotMap/entity_0_worldspawn"]
+[node name="entity_0_brush_6_collision_shape" type="CollisionShape3D" parent="FuncGodotMap/entity_0_worldspawn"]
 shape = SubResource("ConvexPolygonShape3D_hgy80")
 
-[node name="ActAtlas" parent="SubViewport/World" instance=ExtResource("4_g3xr5")]
+[node name="ActAtlas" parent="." instance=ExtResource("4_g3xr5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-viewportContainerPath = NodePath("../../..")
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport/World/ActAtlas"]
+[node name="Camera3D" type="Camera3D" parent="ActAtlas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89231, 9.92402)
 fov = 60.0
 size = 15.286
 
-[node name="Moon" type="Sprite3D" parent="SubViewport/World/ActAtlas/Camera3D"]
+[node name="Moon" type="Sprite3D" parent="ActAtlas/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 636.069, -3519.09)
+layers = 2
 pixel_size = 12.0
+double_sided = false
+alpha_cut = 1
 texture = ExtResource("9_c4p8q")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport/World"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_3l2k3")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/World"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.999904, -0.00521173, -0.0128401, -0.000123105, -0.929885, 0.367849, -0.0138569, -0.367813, -0.929797, 0, 5.42579, 0)
 shadow_enabled = true
 
-[node name="CloudsB" type="Sprite3D" parent="SubViewport/World"]
+[node name="CloudsB" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 52.032, -201.163)
+layers = 2
 pixel_size = 0.25
+double_sided = false
+alpha_cut = 1
 texture_filter = 5
 texture = ExtResource("10_vsvkp")
 region_enabled = true
 region_rect = Rect2(0, 0, 4096, 1028)
 
-[node name="CloudsF" type="Sprite3D" parent="SubViewport/World"]
+[node name="CloudsF" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 29.7921, -99.7188)
+layers = 2
 pixel_size = 0.25
+double_sided = false
+alpha_cut = 1
 texture_filter = 5
 texture = ExtResource("11_8w4xs")
 region_enabled = true
 region_rect = Rect2(0, 0, 4096, 512)
+
+[node name="GBFilter" parent="." instance=ExtResource("13_k1opx")]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_1rjcp")
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(960, 540)
+render_target_update_mode = 0
